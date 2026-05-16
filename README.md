@@ -21,8 +21,6 @@ An interactive browser tool for simulating the distribution of biological relati
 
 ## Simulation Model
 
-Directly ports `simulate_relatives_zinb()` from the Kincounts R project:
-
 - **Siblings** ~ NB(μ·(θ+1)/θ, θ+1) — analytic sibling distribution under ZINB fertility
 - **Aunts & Uncles** — sum of two independent sibling draws (maternal + paternal)
 - **Cousins** — sum over aunts/uncles of per-aunt/uncle ZINB(μ, θ, π₀) draws
