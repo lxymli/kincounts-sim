@@ -2,8 +2,6 @@
 
 An interactive browser tool for simulating the distribution of biological relatives (siblings, aunts/uncles, cousins) under configurable fertility models.
 
-Companion to the [Kincounts](https://github.com/mxyl2161/Kincounts) R/workflowr project.
-
 ## Features
 
 - **Two fertility models** — Poisson and Zero-Inflated Negative Binomial (ZINB)
@@ -11,7 +9,6 @@ Companion to the [Kincounts](https://github.com/mxyl2161/Kincounts) R/workflowr 
 - **Probability Mass Function chart** — grouped bar chart showing simulated PMFs
 - **Summary statistics** — mean, variance, and P(0 kin) per kin type
 - **Reproducible results** — seeded RNG via `seedrandom`
-- **Fast** — 10,000 draws in ~80 ms in-browser
 
 ## Parameters
 
