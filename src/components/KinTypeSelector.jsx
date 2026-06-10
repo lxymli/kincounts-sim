@@ -1,8 +1,9 @@
 const KIN_TYPES = [
-  { key: 'siblings',    label: 'Siblings' },
-  { key: 'auntsUncles', label: 'Aunts & Uncles' },
-  { key: 'cousins',     label: 'Cousins' },
-  { key: 'totalKin',   label: 'Total Kin' },
+  { key: 'children',      label: 'Children' },
+  { key: 'siblings',      label: 'Siblings' },
+  { key: 'auntsUncles',   label: 'Aunts & Uncles' },
+  { key: 'cousins',       label: 'Cousins' },
+  { key: 'niecesNephews', label: 'Nieces & Nephews' },
 ]
 
 export default function KinTypeSelector({ selectedKin, onChange }) {
@@ -15,7 +16,7 @@ export default function KinTypeSelector({ selectedKin, onChange }) {
         <label key={key} className="checkbox-label">
           <input
             type="checkbox"
-            checked={selectedKin[key]}
+            checked={!!selectedKin[key]}
             onChange={() => toggle(key)}
           />
           {label}
