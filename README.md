@@ -1,36 +1,49 @@
 # Kin Counts Simulator
 
-An interactive browser tool for simulating the distribution of biological relatives (siblings, aunts/uncles, cousins) under configurable fertility models.
+An interactive browser tool accompanying the paper "Bridging fertility and sibling distributions." It visualizes the relationship between fertility and sibling distributions under different models, and simulates the full kinship network across three generations.
 
-## Features
+## Sections
 
-- **Two fertility models** — Poisson and Zero-Inflated Negative Binomial (ZINB)
-- **Three kin types** — Siblings, Aunts & Uncles, Cousins, plus Total Kin
-- **Probability Mass Function chart** — grouped bar chart showing simulated PMFs
-- **Summary statistics** — mean, variance, and P(0 kin) per kin type
-- **Reproducible results** — seeded RNG via `seedrandom`
+### Fertility Fit
+- Displays empirical fertility and sibling distributions side by side for five IPUMS cohorts (1950–1990)
+- Overlays ZINB and Poisson model fits on both charts
+- Sibling distribution constructed via size-biasing: P(Y=k) = (k+1)·P(X=k+1)/E[X]
+- ZINB-fitted sibling distribution: NB(μ·(θ+1)/θ, θ+1) — zero-inflation π₀ vanishes
+- Stats panel reports mean and variance for empirical, ZINB, and Poisson across both distributions
+- Cohort validation table reproduces Table 2 from the paper across all five cohorts
 
-## Parameters
-
-| Parameter | Meaning | Range | Default |
-|-----------|---------|-------|---------|
-| μ | Mean fertility | 2 – 6 | 3 |
-| θ | Dispersion (ZINB only) | 1 – 10 | 4 |
-| π₀ | Zero-inflation probability (ZINB only) | 0 – 0.2 | 0.05 |
-| n | Simulation draws | 1,000 – 50,000 | 10,000 |
+### Kinship Counts Simulator
+- Choose a fertility model: ZINB, Poisson, or Fixed
+- Set parameters independently for three generations: focal (1990), parent (1970), grandparent (1950)
+- Simulates 100,000 individuals and produces full marginal distributions for:
+  - Children, Siblings, Aunts & Uncles, Cousins, Nieces & Nephews
+- Summary statistics: mean, variance, and P(0) per kin type
+- Reproducible results via seeded RNG
 
 ## Simulation Model
 
-- **Siblings** ~ NB(μ·(θ+1)/θ, θ+1) — analytic sibling distribution under ZINB fertility
-- **Aunts & Uncles** — sum of two independent sibling draws (maternal + paternal)
-- **Cousins** — sum over aunts/uncles of per-aunt/uncle ZINB(μ, θ, π₀) draws
+**ZINB** — fertility drawn from ZINB(μ, θ, π₀); sibling distribution is NB(μ·(θ+1)/θ, θ+1)
 
-Under Poisson, all draws use Poisson(μ).
+**Poisson** — fertility and siblings drawn from Poisson(μ)
+
+**Fixed** — fertility and sibling counts set to independent empirical means per generation
+
+Aunts & uncles = sum of two independent sibling draws (maternal + paternal). Cousins = random sum over aunts/uncles, each drawing from parent-generation fertility.
+
+## Default Parameters
+
+Defaults match fitted values from the paper (IPUMS USA, women aged 50–59):
+
+| Generation | Model | μ | θ | π₀ |
+|------------|-------|---|---|-----|
+| Focal (1990) | ZINB | 3.213 | 19.536 | 0.056 |
+| Parent (1970) | ZINB | 2.530 | 3.652 | 0.066 |
+| Grandparent (1950) | ZINB | 2.943 | 2.372 | 0.043 |
 
 ## Tech Stack
 
 - [React 19](https://react.dev/) + [Vite](https://vite.dev/)
-- [Recharts](https://recharts.org/) for the PMF bar chart
+- [Recharts](https://recharts.org/) for charts
 - [seedrandom](https://github.com/davidbau/seedrandom) for reproducible RNG
 
 ## Getting Started
